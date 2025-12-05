@@ -40,15 +40,15 @@ local function PressE()
 end
 
 -- Function to simulate releasing E
-local function releaseE()
+local function ReleaseE()
     VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
 
 -- Full cycle here for hold and release
-local function holdE(seconds)
-    pressE()
+local function HoldE(seconds)
+    PressE()
     task.wait(seconds)
-    releaseE()
+    ReleaseE()
 end
 
 -- Teleport to true centre function
@@ -58,14 +58,6 @@ local function returnToArea(area)
     end
 end
 
--- Guard against manual E presses while automation is running
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if running and input.KeyCode == Enum.KeyCode.E then
-        -- Block your own E keypress so it doesn't interfere
-        return
-    end
-end)
-
 -- Main loop
 task.spawn(function()
     while true do
@@ -74,7 +66,7 @@ task.spawn(function()
             for _, spawn in ipairs(workspace.ChristmasEventMap.PresentSpawns:GetChildren()) do
                 humanoidRootPart.CFrame = spawn.CFrame + Vector3.new(0, 2, 0)
                 task.wait(0.25)
-                holdE(3) -- 3s
+                HoldE(3) -- 3s
                 task.wait(teleportDelay)
             end
 
