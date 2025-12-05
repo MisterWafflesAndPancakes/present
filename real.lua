@@ -21,17 +21,17 @@ local psTrain = workspace.Main.TrainingAreasHitBoxes.PS["1No"]
 -- Default return area
 local returnArea = psTrain
 
--- Guard function that can dynamically sink or pass E key press inputs
+-- Guard function: only swallow *real* keyboard input
 local function blockE(actionName, inputState, inputObject)
-    if running then
-        -- Swallow the input completely so the game ignores your manual E press
+    if running and inputObject.UserInputType == Enum.UserInputType.Keyboard then
+        -- Swallow manual E presses while automation is running
         return Enum.ContextActionResult.Sink
     end
-    -- Otherwise let E behave normally
+    -- Let automation or other cases pass through
     return Enum.ContextActionResult.Pass
 end
 
--- Initial bind, does not need to be unbinded!! 
+-- Bind the guard to E
 ContextActionService:BindAction("BlockE", blockE, false, Enum.KeyCode.E)
 
 -- Function to simulate holding E
