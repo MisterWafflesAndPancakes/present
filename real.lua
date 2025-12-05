@@ -35,7 +35,7 @@ end
 ContextActionService:BindAction("BlockE", blockE, false, Enum.KeyCode.E)
 
 -- Function to simulate holding E
-local function Press()
+local function PressE()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
 end
 
